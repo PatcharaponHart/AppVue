@@ -3,11 +3,10 @@
     <h1>Employees List</h1>
     <!-- เพิ่ม input field และ dropdown สำหรับค้นหา -->
     <div class="search-box">
-      <select v-model="searchType" class="search-select">
-        <option value="name">Name</option>
-        <option value="email">Email</option>
-        <option value="project">Project</option>
-        <option value="jobTitle">Job Title</option>
+      <!-- แทนที่ dropdown เดิมด้วย dropdown ใหม่ที่เลือกตาม DepartmentName -->
+      <select v-model="searchDepartment" class="search-select">
+        <option value="">All Departments</option>
+        <option v-for="department in departments" :value="department.departmentName" :key="department.DepartmentID">{{ department.departmentName }}</option>
       </select>
       <input type="text" v-model="searchQuery" placeholder="Search..." class="search-input">
       <i class="pi pi-search search-icon"></i>
@@ -20,6 +19,7 @@
           <th>Email</th>
           <th>Gender</th>
           <th>ProjectName</th>
+          <th>DepartmentName</th>
           <th>JobTitle</th>
         </tr>
       </thead>
@@ -31,6 +31,7 @@
           <td>{{ employee.email }}</td>
           <td>{{ employee.gender }}</td>
           <td>{{ employee.projectName }}</td>
+          <td>{{ employee.departmentName }}</td>
           <td>{{ employee.jobTitle }}</td>
         </tr>
       </tbody>
@@ -39,7 +40,7 @@
 </template>
 
 <script>
-import 'primeicons/primeicons.css'
+import 'primeicons/primeicons.css';
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -47,12 +48,14 @@ export default {
   data() {
     return {
       employees: [],
+      departments: [], // เพิ่ม departments เพื่อเก็บข้อมูลแผนกทั้งหมด
       searchQuery: '',
-      searchType: 'name' // เพิ่ม searchType สำหรับระบุประเภทการค้นหา
+      searchDepartment: '' // เพิ่ม searchDepartment สำหรับเก็บชื่อแผนกที่เลือก
     };
   },
   created() {
     this.fetchEmployees();
+    this.fetchDepartments(); // เรียก method fetchDepartments เพื่อโหลดข้อมูลแผนก
   },
   methods: {
     async fetchEmployees() {
@@ -67,23 +70,30 @@ export default {
         console.error('Error fetching employees:', error);
         alert('Error fetching employees: ' + error.message);
       }
+    },
+    async fetchDepartments() {
+      try {
+        const response = await fetch('https://localhost:7021/api/Department/GetDataList');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        this.departments = data;
+      } catch (error) {
+        console.error('Error fetching departments:', error);
+        alert('Error fetching departments: ' + error.message);
+      }
     }
   },
   computed: {
     filteredEmployees() {
+      // นี่คือชุดข้อมูลพนักงานที่ผ่านการกรอง
+      const query = this.searchQuery.toLowerCase();
+      const selectedDepartment = this.searchDepartment.toLowerCase();
       return this.employees.filter(employee => {
-        const query = this.searchQuery.toLowerCase();
-        if (this.searchType === 'name') {
-          const fullName = `${employee.firstName} ${employee.lastName}`.toLowerCase();
-          return fullName.includes(query);
-        } else if (this.searchType === 'email') {
-          return employee.email.toLowerCase().includes(query);
-        } else if (this.searchType === 'project') {
-          return employee.projectName.toLowerCase().includes(query);
-        } else if (this.searchType === 'jobTitle') {
-          return employee.jobTitle.toLowerCase().includes(query);
-        }
-        return false;
+        const departmentName = employee.departmentName.toLowerCase();
+        return (selectedDepartment === '' || departmentName === selectedDepartment) &&
+               (query === '' || employee.firstName.toLowerCase().includes(query) || employee.lastName.toLowerCase().includes(query));
       });
     }
   }
