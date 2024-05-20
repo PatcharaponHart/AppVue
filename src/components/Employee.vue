@@ -1,9 +1,16 @@
 <template>
   <div class="employees">
     <h1>Employees List</h1>
-    <!-- เพิ่ม input field สำหรับค้นหา -->
+    <!-- เพิ่ม input field และ dropdown สำหรับค้นหา -->
     <div class="search-box">
-      <input type="text" v-model="searchQuery" placeholder="Search...">
+      <select v-model="searchType" class="search-select">
+        <option value="name">Name</option>
+        <option value="email">Email</option>
+        <option value="project">Project</option>
+        <option value="jobTitle">Job Title</option>
+      </select>
+      <input type="text" v-model="searchQuery" placeholder="Search..." class="search-input">
+      <i class="pi pi-search search-icon"></i>
     </div>
     <table>
       <thead>
@@ -32,13 +39,16 @@
 </template>
 
 <script>
+import 'primeicons/primeicons.css'
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Employee',
   data() {
     return {
       employees: [],
-      searchQuery: '' // เพิ่มคุณสมบัติ searchQuery สำหรับการค้นหา
+      searchQuery: '',
+      searchType: 'name' // เพิ่ม searchType สำหรับระบุประเภทการค้นหา
     };
   },
   created() {
@@ -60,11 +70,20 @@ export default {
     }
   },
   computed: {
-    // เพิ่ม computed property สำหรับกรอง employees ตามคำค้นหา
     filteredEmployees() {
       return this.employees.filter(employee => {
-        const fullName = `${employee.firstName} ${employee.lastName}`.toLowerCase();
-        return fullName.includes(this.searchQuery.toLowerCase());
+        const query = this.searchQuery.toLowerCase();
+        if (this.searchType === 'name') {
+          const fullName = `${employee.firstName} ${employee.lastName}`.toLowerCase();
+          return fullName.includes(query);
+        } else if (this.searchType === 'email') {
+          return employee.email.toLowerCase().includes(query);
+        } else if (this.searchType === 'project') {
+          return employee.projectName.toLowerCase().includes(query);
+        } else if (this.searchType === 'jobTitle') {
+          return employee.jobTitle.toLowerCase().includes(query);
+        }
+        return false;
       });
     }
   }
@@ -114,7 +133,32 @@ tbody tr:hover {
   background-color: #ddd;
 }
 
+/* สไตล์ SearchBox */
 .search-box {
   margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px 0 0 5px;
+  font-size: 16px;
+}
+
+.search-input {
+  padding: 10px 30px 10px 10px;
+  border: 1px solid #ddd;
+  border-radius: 0 5px 5px 0;
+  width: 200px;
+  font-size: 16px;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  color: #777;
 }
 </style>

@@ -12,7 +12,7 @@
             <router-link class="navbar-item" to="/employees">Employees</router-link>
             <router-link class="navbar-item" to="/departments">Departments</router-link>
             <router-link class="navbar-item" to="/projects">Projects</router-link>
-            <router-link class="navbar-item" to="/push-employee">+Add Employee</router-link>
+            <router-link class="navbar-item" to="/push-employee">+ Add Employee</router-link>
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@ export default {
   left: 0;
   width: 100%;
   z-index: 100;
-  background-color: #4CAF50;
+  background-color: #238326;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -66,7 +66,7 @@ export default {
 }
 
 .navbar-item {
-  font-size: 1rem; /* ลดขนาด Font ของ Navbar Items */
+  font-size: 1.25rem; /* ลดขนาด Font ของ Navbar Items */
   font-weight: 500;
   margin-left: 20px;
   text-decoration: none;
