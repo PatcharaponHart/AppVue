@@ -4,7 +4,7 @@
       <div class="container">
         <div class="navbar-brand">
           <router-link class="navbar-item logo" to="/">
-            Employee Management
+            <i class="pi pi-home" style="font-size: 1.7rem;"></i> Home
           </router-link>
         </div>
         <div id="navbar-menu-container">
@@ -50,7 +50,7 @@ export default {
 }
 
 .logo {
-  font-size: 1.5rem; /* ลดขนาด Font ของ Logo */
+  font-size: 2rem; /* ลดขนาด Font ของ Logo */
   font-weight: bold;
   color: #fff;
   text-decoration: none;

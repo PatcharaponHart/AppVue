@@ -1,11 +1,16 @@
-// index.js
 import { createRouter, createWebHistory } from 'vue-router';
 import Employee from '@/components/Employee.vue';
-import PushEmployee from '@/components/PushEmployee.vue'; // นำเข้า PushEmployee.vue
+import PushEmployee from '@/components/PushEmployee.vue';
 import Department from '@/components/Department.vue';
 import Project from '@/components/Project.vue';
+import EmployeeManagement from '@/components/EmployeeManagement.vue'; // นำเข้า EmployeeManagement.vue
 
 const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: EmployeeManagement // เส้นทางสำหรับหน้าแรก
+  },
   {
     path: '/employees',
     name: 'Employees',
@@ -14,7 +19,7 @@ const routes = [
   {
     path: '/push-employee',
     name: 'PushEmployee',
-    component: PushEmployee // เพิ่มเส้นทางใหม่สำหรับ PushEmployee.vue
+    component: PushEmployee
   },
   {
     path: '/departments',
