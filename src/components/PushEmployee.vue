@@ -99,8 +99,13 @@ export default {
 h1 {
   color: #4CAF50;
   margin-bottom: 20px;
-  text-align: center; /* จัดตำแหน่งให้กลาง */
+  text-align: center;
   font-size: 2rem;
+  padding: 10px 20px;
+  
+  background-color: #f0f4f8;
+  border-radius: 7px;
+  border:3px solid rgb(12, 138, 19) ;
 }
 
 .form-group {
@@ -136,7 +141,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   font-size: 1.2rem;
-  width: 100%;
+  width: 40%;
   margin-top: 20px;
   transition: background-color 0.3s ease;
 }

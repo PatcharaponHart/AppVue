@@ -112,6 +112,9 @@ export default {
 h1 {
   margin-bottom: 20px;
   color: #4CAF50;
+  padding: 10px 20px;
+  border-radius: 7px;
+  border:3px solid rgb(4, 28, 183) ;
 }
 
 table {

@@ -9,6 +9,8 @@
             <th>Manager ID</th>
             <th>FirstName</th>
             <th>JobTitle</th>
+            <th>StartDate</th>
+            <th>EndDate</th>
           </tr>
         </thead>
         <tbody>
@@ -18,6 +20,8 @@
             <td>{{ project.managerID }}</td>
             <td>{{ project.firstName }}</td>
             <td>{{ project.jobTitle }}</td>
+            <td>{{ project.startDate }}</td>
+            <td>{{ project.endDate }}</td>
 
           </tr>
         </tbody>
@@ -67,6 +71,9 @@
   h1 {
     margin-bottom: 20px;
     color: #4CAF50; /* เปลี่ยนสีหัวเรื่อง */
+    padding: 10px 20px;
+    border-radius: 7px;
+    border:3px solid rgb(4, 28, 183) ;
   }
   
   table {

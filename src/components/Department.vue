@@ -4,16 +4,16 @@
       <table>
         <thead>
           <tr>
-            
-            <th>Department Name</th>
+            <th>DepartmentName</th>
             <th>Manager ID</th>
+            <th>ProjectName</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="department in departments" :key="department.DepartmentID">
-            
             <td>{{ department.departmentName }}</td>
             <td>{{ department.managerID }}</td>
+            <td>{{ department.projectName }}</td>
           </tr>
         </tbody>
       </table>
@@ -62,6 +62,9 @@
   h1 {
     margin-bottom: 20px;
     color: #4CAF50; /* เปลี่ยนสีหัวเรื่อง */
+    padding: 10px 20px;
+    border-radius: 7px;
+    border:3px solid rgb(4, 28, 183) ;
   }
   
   table {

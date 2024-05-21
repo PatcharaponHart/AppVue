@@ -4,7 +4,7 @@
       <div class="container">
         <div class="navbar-brand">
           <router-link class="navbar-item logo" to="/">
-            <i class="pi pi-home" style="font-size: 1.7rem;"></i> Home
+            <i class="pi pi-home" style="font-size: 1.7rem;"></i> Home <i class="pi pi-spin pi-slack" style="font-size: 0.9rem"></i>
           </router-link>
         </div>
         <div id="navbar-menu-container">
@@ -12,7 +12,7 @@
             <router-link class="navbar-item" to="/employees">Employees</router-link>
             <router-link class="navbar-item" to="/departments">Departments</router-link>
             <router-link class="navbar-item" to="/projects">Projects</router-link>
-            <router-link class="navbar-item" to="/push-employee">+ Add Employee</router-link>
+            <router-link class="navbar-item" to="/push-employee"><i class="pi pi-plus" style="font-size: 0.7rem;"></i> Add Employee</router-link>
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@ export default {
   left: 0;
   width: 100%;
   z-index: 100;
-  background-color: #238326;
+  background-color: #07435b;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -66,11 +66,12 @@ export default {
 }
 
 .navbar-item {
-  font-size: 1.25rem; /* ลดขนาด Font ของ Navbar Items */
+  font-size: 18px; /* ลดขนาด Font ของ Navbar Items */
   font-weight: 500;
   margin-left: 20px;
   text-decoration: none;
   color: #fff;
+  font-family: 'Comic Sans MS', cursive;
 }
 
 .navbar-item:hover {

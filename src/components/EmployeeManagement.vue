@@ -28,6 +28,7 @@
     font-size: 2.5rem;
     margin-bottom: 1rem;
     color: #238326;
+    font-family: 'Comic Sans MS', cursive;
   }
   
   .employee-management p {
