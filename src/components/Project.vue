@@ -1,5 +1,6 @@
 <template>
     <div class="projects">
+      <router-link class="navbar-item" to="/push-project"><i class="pi pi-plus" style="font-size: 0.7rem;"></i> New </router-link>
       <h1>Project List</h1>
       <table>
         <thead>
@@ -60,6 +61,17 @@
   </script>
   
   <style scoped>
+  .projects a{
+    color: #ffffff;
+  padding: 10px;
+  align-self: end;
+  font-size: 1.1rem;
+  border: 3px solid #e6dd25;
+  border-radius: 7px;
+  background-color: #0cd6d3;
+  text-decoration: none;
+  }
+  
   .projects {
     padding: 20px;
     display: flex;
@@ -70,10 +82,12 @@
   
   h1 {
     margin-bottom: 20px;
-    color: #4CAF50; /* เปลี่ยนสีหัวเรื่อง */
-    padding: 10px 20px;
-    border-radius: 7px;
-    border:3px solid rgb(4, 28, 183) ;
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 35px;
+  color: #328a35;
+  padding: 10px 20px;
+  border-radius: 7px;
+  border: 5px solid rgb(4, 28, 183);
   }
   
   table {

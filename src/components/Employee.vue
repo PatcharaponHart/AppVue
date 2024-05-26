@@ -1,9 +1,8 @@
 <template>
   <div class="employees">
+    <router-link class="navbar-item" to="/push-employee"><i class="pi pi-plus" style="font-size: 0.7rem;"></i> New </router-link>
     <h1>Employees List</h1>
-    <!-- เพิ่ม input field และ dropdown สำหรับค้นหา -->
     <div class="search-box">
-      <!-- แทนที่ dropdown เดิมด้วย dropdown ใหม่ที่เลือกตาม DepartmentName -->
       <select v-model="searchDepartment" class="search-select">
         <option value="">All Departments</option>
         <option v-for="department in departments" :value="department.departmentName" :key="department.DepartmentID">{{ department.departmentName }}</option>
@@ -21,10 +20,10 @@
           <th>ProjectName</th>
           <th>DepartmentName</th>
           <th>JobTitle</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <!-- แก้ไขการแสดงข้อมูลใน tbody เพื่อให้แสดงเฉพาะข้อมูลที่ตรงกับคำค้นหา -->
         <tr v-for="employee in filteredEmployees" :key="employee.EmployeeID">
           <td>{{ employee.firstName }}</td>
           <td>{{ employee.lastName }}</td>
@@ -33,6 +32,7 @@
           <td>{{ employee.projectName }}</td>
           <td>{{ employee.departmentName }}</td>
           <td>{{ employee.jobTitle }}</td>
+          <td><button @click="deleteEmployee(employee.EmployeeID)">Delete</button></td>
         </tr>
       </tbody>
     </table>
@@ -48,14 +48,14 @@ export default {
   data() {
     return {
       employees: [],
-      departments: [], // เพิ่ม departments เพื่อเก็บข้อมูลแผนกทั้งหมด
+      departments: [],
       searchQuery: '',
-      searchDepartment: '' // เพิ่ม searchDepartment สำหรับเก็บชื่อแผนกที่เลือก
+      searchDepartment: ''
     };
   },
   created() {
     this.fetchEmployees();
-    this.fetchDepartments(); // เรียก method fetchDepartments เพื่อโหลดข้อมูลแผนก
+    this.fetchDepartments();
   },
   methods: {
     async fetchEmployees() {
@@ -83,11 +83,25 @@ export default {
         console.error('Error fetching departments:', error);
         alert('Error fetching departments: ' + error.message);
       }
+    },
+    async deleteEmployee(employeeID) {
+      try {
+        const response = await fetch(`https://localhost:7021/api/Employee/DeleteEmployee/${employeeID}`, {
+          method: 'DELETE'
+        });
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        alert('Employee deleted successfully!');
+        this.fetchEmployees(); // Refresh the list after deletion
+      } catch (error) {
+        console.error('Error deleting employee:', error);
+        alert('Error deleting employee: ' + error.message);
+      }
     }
   },
   computed: {
     filteredEmployees() {
-      // นี่คือชุดข้อมูลพนักงานที่ผ่านการกรอง
       const query = this.searchQuery.toLowerCase();
       const selectedDepartment = this.searchDepartment.toLowerCase();
       return this.employees.filter(employee => {
@@ -101,20 +115,34 @@ export default {
 </script>
 
 <style scoped>
+.employees a {
+  color: #ffffff;
+  padding: 10px;
+  align-self: end;
+  font-size: 1.1rem;
+  border: 3px solid #f59c4f;
+  border-radius: 7px;
+  background-color: #0cd6d3;
+  text-decoration: none;
+}
+
 .employees {
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 60px;
+  background-color: #d0f9fc;
 }
 
 h1 {
   margin-bottom: 20px;
-  color: #4CAF50;
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 35px;
+  color: #328a35;
   padding: 10px 20px;
   border-radius: 7px;
-  border:3px solid rgb(4, 28, 183) ;
+  border: 5px solid rgb(4, 28, 183);
 }
 
 table {
@@ -146,7 +174,6 @@ tbody tr:hover {
   background-color: #ddd;
 }
 
-/* สไตล์ SearchBox */
 .search-box {
   margin-bottom: 20px;
   position: relative;
@@ -173,5 +200,18 @@ tbody tr:hover {
   position: absolute;
   right: 10px;
   color: #777;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e60000;
 }
 </style>

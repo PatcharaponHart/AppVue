@@ -1,6 +1,7 @@
 <!-- src/components/EmployeeManagement.vue -->
 <template>
     <div class="employee-management">
+        <img src="@/images/Employee-Management-Meaning-Importance-Tips-Tools---More.png" alt="">
       <h1>Employee Management</h1>
       <p>Welcome to the Employee Management system!</p>
     </div>

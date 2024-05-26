@@ -24,12 +24,18 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="projectName">Project Name:</label>
-        <input type="text" id="projectName" v-model="employee.projectName" required />
+        <label for="departmentID">Department ID:</label>
+        <input type="text" id="departmentID" v-model="employee.departmentID" required />
       </div>
       <div class="form-group">
         <label for="jobTitle">Job Title:</label>
-        <input type="text" id="jobTitle" v-model="employee.jobTitle" required />
+        <div class="job-title-container">
+          <select id="jobTitle" v-model="employee.jobTitle" required>
+            <option disabled value="">Select Job Title</option>
+            <option v-for="job in jobTitles" :key="job" :value="job">{{ job }}</option>
+          </select>
+          <button type="button" @click="addJobTitle">Add Job Title</button>
+        </div>
       </div>
       <button type="submit">Submit</button>
     </form>
@@ -46,9 +52,10 @@ export default {
         lastName: '',
         email: '',
         gender: '',
-        projectName: '',
+        departmentID: '',
         jobTitle: ''
-      }
+      },
+      jobTitles: ['Developer','IT', 'Manager', 'Designer', 'Tester','Hart'] // ตัวอย่าง Job Titles
     };
   },
   methods: {
@@ -77,9 +84,15 @@ export default {
         lastName: '',
         email: '',
         gender: '',
-        projectName: '',
+        departmentID: '',
         jobTitle: ''
       };
+    },
+    addJobTitle() {
+      const newJobTitle = prompt("Please enter a new job title:");
+      if (newJobTitle && !this.jobTitles.includes(newJobTitle)) {
+        this.jobTitles.push(newJobTitle);
+      }
     }
   }
 };
@@ -89,23 +102,22 @@ export default {
 .push-employee {
   padding: 20px;
   max-width: 600px;
-  margin: 80px auto; /* เพิ่มระยะห่างจาก navbar */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
-  border-radius: 12px; /* เพิ่มมุมโค้ง */
-  background-color: #ffffff; /* สีพื้นหลังขาว */
-  border: 1px solid #e0e0e0; /* เพิ่มเส้นขอบ */
+  margin: 80px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
 }
 
 h1 {
   color: #4CAF50;
   margin-bottom: 20px;
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.7rem;
   padding: 10px 20px;
-  
   background-color: #f0f4f8;
-  border-radius: 7px;
-  border:3px solid rgb(12, 138, 19) ;
+  border-radius: 20px;
+  border: 2px solid rgb(12, 138, 19);
 }
 
 .form-group {
@@ -148,5 +160,17 @@ button {
 
 button:hover {
   background-color: #45a049;
+}
+
+.job-title-container {
+  display: flex;
+  align-items: center;
+}
+
+.job-title-container button {
+  margin-bottom: 21px;
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #0cd6d3;
 }
 </style>

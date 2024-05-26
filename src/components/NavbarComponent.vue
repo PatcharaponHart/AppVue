@@ -12,7 +12,7 @@
             <router-link class="navbar-item" to="/employees">Employees</router-link>
             <router-link class="navbar-item" to="/departments">Departments</router-link>
             <router-link class="navbar-item" to="/projects">Projects</router-link>
-            <router-link class="navbar-item" to="/push-employee"><i class="pi pi-plus" style="font-size: 0.7rem;"></i> Add Employee</router-link>
+            
           </div>
         </div>
       </div>
