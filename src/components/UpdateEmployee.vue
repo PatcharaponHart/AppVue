@@ -3,20 +3,24 @@
       <h1>Update Employee</h1>
       <form @submit.prevent="updateEmployee">
         <div class="form-group">
+          <label for="employeeID">ID:</label>
+          <input type="number" id="employeeID" v-model="employee.employeeID" required />
+        </div>
+        <div class="form-group">
           <label for="firstName">First Name:</label>
           <input type="text" id="firstName" v-model="employee.firstName" required />
         </div>
         <div class="form-group">
           <label for="lastName">Last Name:</label>
-          <input type="text" id="lastName" v-model="employee.lastName" required />
+          <input type="text" id="lastName" v-model="employee.lastName" />
         </div>
         <div class="form-group">
           <label for="email">Email:</label>
-          <input type="email" id="email" v-model="employee.email" required />
+          <input type="email" id="email" v-model="employee.email" />
         </div>
         <div class="form-group">
           <label for="gender">Gender:</label>
-          <select id="gender" v-model="employee.gender" required>
+          <select id="gender" v-model="employee.gender">
             <option disabled value="">Select Gender</option>
             <option>Male</option>
             <option>Female</option>
@@ -25,7 +29,7 @@
         </div>
         <div class="form-group">
           <label for="jobTitle">Job Title:</label>
-          <input type="text" id="jobTitle" v-model="employee.jobTitle" required />
+          <input type="text" id="jobTitle" v-model="employee.jobTitle"/>
         </div>
         <button type="submit">Update</button>
       </form>
@@ -68,9 +72,7 @@
       }
     },
     created() {
-      // คุณอาจต้องรับข้อมูลของพนักงานที่ต้องการอัปเดตด้วยวิธีใดวิธีหนึ่ง
-      // เช่น การส่งพารามิเตอร์ ID ผ่าน URL หรือการดึงข้อมูลจาก API อื่น ๆ
-      // และกำหนดค่าให้กับ this.employee เพื่อให้มีข้อมูลที่ต้องการอัปเดต
+      // this.employee.employeeID = 
     }
   };
   </script>

@@ -1,6 +1,7 @@
 <template>
   <div class="employees">
     <router-link class="navbar-item" to="/push-employee"><i class="pi pi-plus" style="font-size: 0.7rem;"></i> New </router-link>
+    <router-link class="navbar-item" to="/update-employee"><i class="pi pi-plus" style="font-size: 0.7rem;"></i> Update </router-link>
     <h1>Employees List</h1>
     <div class="search-box">
       <select v-model="searchDepartment" class="search-select">
@@ -25,6 +26,7 @@
       </thead>
       <tbody>
         <tr v-for="employee in filteredEmployees" :key="employee.EmployeeID">
+          <!-- <td>{{  employee.employeeID }}</td> -->
           <td>{{ employee.firstName }}</td>
           <td>{{ employee.lastName }}</td>
           <td>{{ employee.email }}</td>
@@ -32,7 +34,7 @@
           <td>{{ employee.projectName }}</td>
           <td>{{ employee.departmentName }}</td>
           <td>{{ employee.jobTitle }}</td>
-          <td><button @click="deleteEmployee(employee.EmployeeID)">Delete</button></td>
+          <td><button @click="deleteEmployee(employee.employeeID)">Delete</button></td>
         </tr>
       </tbody>
     </table>
@@ -86,13 +88,16 @@ export default {
     },
     async deleteEmployee(employeeID) {
       try {
+        console.log('Deleting employee with ID:', employeeID);
         const response = await fetch(`https://localhost:7021/api/Employee/DeleteEmployee/${employeeID}`, {
           method: 'DELETE'
         });
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          const errorText = await response.text();
+          throw new Error(`Network response was not ok: ${errorText}`);
         }
         alert('Employee deleted successfully!');
+        console.log('Employee deleted successfully');
         this.fetchEmployees(); // Refresh the list after deletion
       } catch (error) {
         console.error('Error deleting employee:', error);
@@ -107,7 +112,7 @@ export default {
       return this.employees.filter(employee => {
         const departmentName = employee.departmentName.toLowerCase();
         return (selectedDepartment === '' || departmentName === selectedDepartment) &&
-               (query === '' || employee.firstName.toLowerCase().includes(query) || employee.lastName.toLowerCase().includes(query));
+        (query === '' || employee.firstName.toLowerCase().includes(query) || employee.lastName.toLowerCase().includes(query));
       });
     }
   }
@@ -116,11 +121,13 @@ export default {
 
 <style scoped>
 .employees a {
+line-height: 18px;
   color: #ffffff;
   padding: 10px;
+  gap: 18px;
   align-self: end;
   font-size: 1.1rem;
-  border: 3px solid #f59c4f;
+  border: 3px solid #e6dd25;
   border-radius: 7px;
   background-color: #0cd6d3;
   text-decoration: none;
@@ -130,6 +137,7 @@ export default {
   padding: 20px;
   display: flex;
   flex-direction: column;
+  gap: 18px;
   align-items: center;
   margin-top: 60px;
   background-color: #d0f9fc;

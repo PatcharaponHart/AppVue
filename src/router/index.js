@@ -4,8 +4,10 @@ import PushEmployee from '@/components/PushEmployee.vue';
 import UpdateEmployee from '@/components/UpdateEmployee.vue';
 import Department from '@/components/Department.vue';
 import PushDepartment from '@/components/PushDepartment.vue';
+import UpdateDepartment from '@/components/UpdateDepartment.vue';
 import Project from '@/components/Project.vue';
 import PushProject from '@/components/PushProject.vue';
+import UpdateProject from '@/components/UpdateProject.vue';
 import EmployeeManagement from '@/components/EmployeeManagement.vue'; // นำเข้า EmployeeManagement.vue
 
 const routes = [
@@ -40,9 +42,19 @@ const routes = [
     component: PushDepartment
   },
   {
+    path: '/update-department',
+    name: 'UpdateDepartment',
+    component: UpdateDepartment
+  },
+  {
     path: '/projects',
     name: 'Project',
     component: Project
+  },
+  {
+    path: '/update-project',
+    name: 'UpdateProject',
+    component: UpdateProject
   },
   {
     path: '/push-project',
